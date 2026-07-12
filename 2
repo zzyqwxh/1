@@ -1,0 +1,52 @@
+#include "stm32f4xx.h"
+GPIO_InitTypeDef GPIO_InitStructure; //����һ��GPIO��ʼ���õĽṹ��
+int main(void)
+{
+	   /*���� GPIOB ��ʱ�ӣ�����ʹ�� GPIOB*/
+   RCC_AHB1PeriphClockCmd ( RCC_AHB1Periph_GPIOB,  ENABLE ); //��AHB1�Ͽ���GPIOB��ʱ��
+   /*��������LED���ڵ�GPIO��PB5��PB0��PB1��*/
+   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_0 | GPIO_Pin_1; //Ҫ��ʼ�������źţ�PB5��PB0��PB1��
+   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;  //GPIO����Ϊ���ģʽ
+   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;  //GPIO����Ϊ����ģʽ
+   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;  //�ٶ�����Ϊ25MHz
+   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;  //û��������������
+  
+   /*Ԥ�Ȱ��������Ϊ�ߵ�ƽ��ȷ��LED�ǳ�ʼ������Ϩ���*/
+   GPIO_SetBits(GPIOB, GPIO_Pin_5 | GPIO_Pin_0 | GPIO_Pin_1);
+  
+   /*ʹ���������õ�GPIO_InitStructure���ݣ���ʼ��GPIOB*/
+   GPIO_Init( GPIOB,  &GPIO_InitStructure );
+
+   /*����GPIO����͵�ƽ����������LED*/
+   GPIO_ResetBits(GPIOB, GPIO_Pin_5 | GPIO_Pin_0 | GPIO_Pin_1);
+  
+   /*Ҳ�������������ָ�����кܿ죬���ַ�ʽ����������*/
+//  GPIO_ResetBits(GPIOB, GPIO_Pin_5);
+//  GPIO_ResetBits(GPIOB, GPIO_Pin_0);
+//  GPIO_ResetBits(GPIOB, GPIO_Pin_1);
+  
+   /*�������GPIO����ߵ�ƽ��Ϩ������LED*/
+//  GPIO_SetBits(GPIOB, GPIO_Pin_5 | GPIO_Pin_0 | GPIO_Pin_1);
+   /*���� GPIOA ��ʱ�ӣ�����ʹ�� GPIOA*/
+   RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA,ENABLE); //AHB1�Ͽ���GPIOAʱ��
+  
+   /*���÷��������ڵ�GPIO��PA8��*/
+   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8; //Ҫ��ʼ�������ź�
+   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;  //GPIO����Ϊ���ģʽ
+   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;  //GPIO����Ϊ����ģʽ
+   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;  //�ٶ�����Ϊ25MHz
+   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;  //û��������������
+   GPIO_SetBits(GPIOA, GPIO_Pin_8);//Ԥ������Ϊ�ߵ�ƽ���������ǲ����
+   GPIO_Init( GPIOA,  &GPIO_InitStructure );  //ʹ�����������ݣ���ʼ��GPIOB
+
+   /*PA8����͵�ƽ����������*/
+   GPIO_ResetBits(GPIOA, GPIO_Pin_8);
+  
+   /*���PA8����ߵ�ƽ��������ֹͣ����*/
+//  GPIO_SetBits(GPIOA, GPIO_Pin_8);
+   while(1)
+   {
+      
+   }
+
+}
